@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Berrylane · Strawberry Shake &amp; Smoothie Bar</title>
+<meta name="description" content="Berrylane: hand-blended strawberry milkshakes made from berries picked at dawn.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 58C14 46 8 30 14 22c5-7 13-6 18-2 5-4 13-5 18 2 6 8 0 24-18 36z' fill='%23d62839'/%3E%3Cpath d='M22 16c4 2 7 2 10 0 3 2 6 2 10 0-2-5-6-8-10-8s-8 3-10 8z' fill='%233f9a28'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div id="loader" role="status" aria-live="polite">
+  <div class="ld-inner">
+    <svg class="ld-berry" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 58C14 46 8 30 14 22c5-7 13-6 18-2 5-4 13-5 18 2 6 8 0 24-18 36z" fill="#d62839"/><path d="M22 16c4 2 7 2 10 0 3 2 6 2 10 0-2-5-6-8-10-8s-8 3-10 8z" fill="#3f9a28"/><g fill="#f7d36a"><circle cx="24" cy="30" r="1.6"/><circle cx="34" cy="28" r="1.6"/><circle cx="42" cy="33" r="1.6"/><circle cx="28" cy="40" r="1.6"/><circle cx="38" cy="42" r="1.6"/><circle cx="32" cy="50" r="1.6"/></g></svg>
+    <div class="ld-name">Berrylane</div>
+    <div class="ld-bar"><i></i></div>
+    <div class="ld-txt">Picking the ripest berries&hellip;</div>
+  </div>
+</div>
+<!-- crossfading background layers, one per section -->
+<div id="bg" aria-hidden="true">
+  <div class="layer l0"></div><div class="layer l1"></div><div class="layer l2"></div>
+  <div class="layer l3"></div><div class="layer l4"></div><div class="layer l5"></div>
+</div>
+
+<header id="nav">
+  <a class="logo" href="#fresh" aria-label="Berrylane home">
+    <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 58C14 46 8 30 14 22c5-7 13-6 18-2 5-4 13-5 18 2 6 8 0 24-18 36z" fill="#d62839"/><path d="M22 16c4 2 7 2 10 0 3 2 6 2 10 0-2-5-6-8-10-8s-8 3-10 8z" fill="#3f9a28"/><g fill="#f7d36a"><circle cx="24" cy="30" r="1.6"/><circle cx="34" cy="28" r="1.6"/><circle cx="42" cy="33" r="1.6"/><circle cx="28" cy="40" r="1.6"/><circle cx="38" cy="42" r="1.6"/><circle cx="32" cy="50" r="1.6"/></g></svg>
+    <span>Berrylane<small>Shake &amp; Smoothie Bar</small></span>
+  </a>
+  <nav>
+    <a href="#fresh">Story</a><a href="#menu">Menu</a><a href="#reviews">Reviews</a><a href="#hours">Visit</a>
+    <a class="btn small" href="#menu">Order ahead</a>
+  </nav>
+</header>
+
+<canvas id="c" aria-label="3D strawberry milkshake animation"></canvas>
+<div id="viewctl" aria-label="3D view controls">
+  <button type="button" data-a="in" aria-label="Zoom in">+</button>
+  <button type="button" data-a="out" aria-label="Zoom out">&minus;</button>
+  <button type="button" data-a="reset" aria-label="Reset view" class="reset"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5a7 7 0 1 1-6.6 4.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 4v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Reset view</span></button>
+</div>
+<nav id="steps" aria-label="Story progress">
+  <a href="#fresh" data-s="0"><i></i><span>Picked at dawn</span></a>
+  <a href="#sorted" data-s="1"><i></i><span>Into the tumble</span></a>
+  <a href="#blend" data-s="2"><i></i><span>Milk &amp; blend</span></a>
+  <a href="#pour" data-s="3"><i></i><span>The pour</span></a>
+  <a href="#finish" data-s="4"><i></i><span>Into the glass</span></a>
+</nav>
+<a id="stickycta" class="btn" href="#menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10l-1 16H8L7 4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M6 4h12M12 4l2-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Order ahead</a>
+<div id="viewhint" aria-hidden="true"><span class="d">Drag to rotate · Ctrl + scroll to zoom</span><span class="m">Swipe sideways to rotate</span></div>
+
+<main>
+  <section class="chap light" id="fresh" data-i="0">
+    <div class="sticky"><div class="copy">
+      <p class="eyebrow"><span>01</span> Picked at dawn</p>
+      <h1>Strawberries,<br><em>straight from the field.</em></h1>
+      <p class="lead">Every Berrylane shake starts with a bowl of ripe, glossy strawberries, delivered each morning from small farms in the highlands and hand-sorted before we open.</p>
+      <div class="ctas"><a class="btn" href="#menu">Explore the menu</a><a class="btn ghost" href="#hours">Find us</a></div>
+      <ul class="facts"><li><b>6 am</b>harvest</li><li><b>0</b>frozen fruit</li><li><b>100%</b>real berries</li></ul>
+    </div></div>
+    <div class="scrollcue" aria-hidden="true">Scroll to tip the bowl</div>
+  </section>
+
+  <section class="chap light" id="sorted" data-i="1">
+    <div class="sticky"><div class="copy">
+      <p class="eyebrow"><span>02</span> Into the tumble</p>
+      <h2>Ripe, red and<br><em>falling for you.</em></h2>
+      <p class="lead">Straight from the bowl, every berry tumbles into its shake whole. Sun-warm, deep red to the shoulder and fragrant enough to smell across the counter. Nothing frozen, nothing from a carton.</p>
+      <ul class="menu-list">
+        <li><span>Variety</span><i></i><span>Chandler &amp; Albion</span></li>
+        <li><span>Per shake</span><i></i><span>A generous handful</span></li>
+        <li><span>Hulled</span><i></i><span>By hand, to order</span></li>
+      </ul>
+    </div></div>
+  </section>
+
+  <section class="chap light" id="blend" data-i="2">
+    <div class="sticky"><div class="copy">
+      <p class="eyebrow"><span>03</span> Milk &amp; blend</p>
+      <h2>Berries, cold milk,<br><em>forty-five seconds.</em></h2>
+      <p class="lead">The berries land in the jar and we pour ice-cold whole milk right over them, with a scoop of house vanilla gelato. Lid on, blades up, and in under a minute it all turns silky, blush-pink and impossibly thick.</p>
+      <ul class="menu-list">
+        <li><span>Milk</span><i></i><span>Whole, oat or almond</span></li>
+        <li><span>Sweetened with</span><i></i><span>Raw honey</span></li>
+        <li><span>Add-ins</span><i></i><span>Malt, rose, black pepper</span></li>
+      </ul>
+    </div></div>
+  </section>
+
+  <section class="chap dark" id="pour" data-i="3">
+    <div class="sticky"><div class="copy">
+      <p class="eyebrow"><span>04</span> The pour</p>
+      <h2>Thick enough<br><em>to take its time.</em></h2>
+      <p class="lead">Straight from the blender, a proper shake doesn't splash, it ribbons. One long, slow, velvety pour, so every glass gets the same thick body from the first sip to the last scrape of the straw.</p>
+      <div class="ctas"><a class="btn light" href="#menu">See all shakes</a></div>
+    </div></div>
+  </section>
+
+  <section class="chap light" id="finish" data-i="4">
+    <div class="sticky"><div class="copy">
+      <p class="eyebrow"><span>05</span> Into the glass</p>
+      <h2>Whipped cream, syrup,<br><em>one perfect berry.</em></h2>
+      <p class="lead">The ribbon fills a frosted glass to the brim. Then piped Chantilly cream, a drizzle of slow-cooked strawberry syrup, a whole berry on top and a paper straw. Cold enough to fog.</p>
+      <ul class="menu-list">
+        <li><span>Cream</span><i></i><span>Hand-whipped Chantilly</span></li>
+        <li><span>Syrup</span><i></i><span>Strawberry, simmered 3 h</span></li>
+        <li><span>Straw</span><i></i><span>Paper, compostable</span></li>
+      </ul>
+    </div></div>
+  </section>
+
+  <section class="dark" id="menu" data-i="5">
+    <div class="menu-wrap">
+      <p class="eyebrow"><span>06</span> The menu</p>
+      <h2>Pick your <em>pink.</em></h2>
+      <div class="cards">
+        <article>
+          <div class="c-top"><svg class="c-ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M8 6h12l-1.6 18H9.6L8 6z"/><path d="M7 6c0-2.5 3-3.5 7-3.5S21 3.5 21 6"/><path d="M16 2.5l2.5-2"/></svg><span class="price">$7.50</span></div>
+          <h3>The Classic</h3><p>Strawberries, whole milk, vanilla gelato, Chantilly cream and syrup.</p><span class="tag">Bestseller</span>
+        </article>
+        <article>
+          <div class="c-top"><svg class="c-ic" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="11" r="5"/><path d="M14 8c-1.6 0-2.6 1.3-2.2 2.7.4 1.4 2.7 1.7 3.6.5"/><path d="M14 16v9M14 21c-2-2.6-4.6-3-6-2.4M14 19c2-2 4.4-2.2 5.6-1.6"/></svg><span class="price">$8.25</span></div>
+          <h3>Rose &amp; Berry</h3><p>Our classic with a whisper of rosewater and crushed pistachio.</p><span class="tag">Floral</span>
+        </article>
+        <article>
+          <div class="c-top"><svg class="c-ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M5 23C5 12 12 5 23 5c0 11-7 18-18 18z"/><path d="M5 23L16 12"/></svg><span class="price">$8.00</span></div>
+          <h3>Berry Oat Cloud</h3><p>Oat milk, coconut cream, strawberries and maple. Fully plant-based.</p><span class="tag">Vegan</span>
+        </article>
+        <article>
+          <div class="c-top"><svg class="c-ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M19 4a10 10 0 1 0 5 15A8 8 0 0 1 19 4z"/><path d="M8 7l.8 1.8L10.6 9.6 8.8 10.4 8 12.2 7.2 10.4 5.4 9.6l1.8-.8z"/></svg><span class="price">$8.50</span></div>
+          <h3>Malted Midnight</h3><p>Strawberry, dark chocolate and malt, finished with cocoa nibs.</p><span class="tag">Rich</span>
+        </article>
+      </div>
+      <p class="menu-note">Regular 12 oz &middot; Large 16 oz +$2 &middot; Swap to oat or almond milk at no charge</p>
+      <div class="ctas"><a class="btn light" href="#hours">Order at the counter</a><a class="btn ghost" href="#hours">Opening hours</a></div>
+    </div>
+  </section>
+</main>
+
+<div id="after">
+  <section id="why" class="band" aria-labelledby="why-h">
+    <div class="wrap">
+      <p class="eyebrow"><span>07</span> Why Berrylane</p>
+      <h2 id="why-h">Small batch. <em>Big flavour.</em></h2>
+      <div class="why-grid">
+        <div class="why"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="18" r="6"/><path d="M16 4v4M6 8l2.8 2.8M26 8l-2.8 2.8M3 18h4M25 18h4M4 26h24"/></svg><h3>Picked at dawn</h3><p>Berries from small highland farms, on our counter the same morning.</p></div>
+        <div class="why"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M11 3h10v5l3 4v17H8V12l3-4z"/><path d="M8 17h16"/></svg><h3>Real milk &amp; gelato</h3><p>Whole milk and house vanilla gelato, or oat and almond if you prefer.</p></div>
+        <div class="why"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4c5 6 8 10 8 14a8 8 0 0 1-16 0c0-4 3-8 8-14z"/><path d="M5 5l22 22"/></svg><h3>No syrups from a bottle</h3><p>Our strawberry syrup is simmered in-house for three hours. Nothing artificial.</p></div>
+        <div class="why"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M9 8h14l-2 20H11z"/><path d="M7 8h18M16 8V3"/><path d="M13 16c2 2 4 2 6 0"/></svg><h3>Compostable to the straw</h3><p>Paper straws, plant-based cups and a bring-your-own-cup discount.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews" class="band alt" aria-labelledby="rev-h">
+    <div class="wrap">
+      <p class="eyebrow"><span>08</span> Kind words</p>
+      <h2 id="rev-h">What people <em>say.</em></h2>
+      <p class="sample-note">Sample reviews, for illustration</p>
+      <div class="rev-grid">
+        <figure class="rev"><div class="stars" aria-label="5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>&ldquo;Thick enough to stand a straw in, and it actually tastes of strawberries. The Classic is my Saturday ritual.&rdquo;</blockquote><figcaption>A weekend regular</figcaption></figure>
+        <figure class="rev"><div class="stars" aria-label="5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>&ldquo;The oat version is so creamy I had to ask twice if it was really plant-based.&rdquo;</blockquote><figcaption>A first-time visitor</figcaption></figure>
+        <figure class="rev"><div class="stars" aria-label="4 out of 5">&#9733;&#9733;&#9733;&#9733;<span>&#9733;</span></div><blockquote>&ldquo;Rose &amp; Berry is delicate and not too sweet. Watching them blend it is half the fun.&rdquo;</blockquote><figcaption>A neighbour on Orchard Lane</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="band" aria-labelledby="gal-h">
+    <div class="wrap">
+      <div class="gal-head"><div><p class="eyebrow"><span>09</span> @berrylane</p><h2 id="gal-h">Fresh from <em>the feed.</em></h2></div><a class="btn ghost" href="#newsletter">Get the weekly drop</a></div>
+      <div class="gal">
+        <div class="tile t1" data-l="412" role="img" aria-label="A strawberry shake from above"></div>
+        <div class="tile t2" data-l="389" role="img" aria-label="A pile of strawberries"></div>
+        <div class="tile t3" data-l="527" role="img" aria-label="Pink swirl of whipped cream"></div>
+        <div class="tile t4" data-l="298" role="img" aria-label="Glass of shake with a straw"></div>
+        <div class="tile t5" data-l="611" role="img" aria-label="Halved strawberry"></div>
+        <div class="tile t6" data-l="344" role="img" aria-label="Morning light on the counter"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="hours" class="band dark2" aria-labelledby="hrs-h">
+    <div class="wrap hours-grid">
+      <div>
+        <p class="eyebrow"><span>10</span> Visit us</p>
+        <h2 id="hrs-h">Come by for <em>a pink one.</em></h2>
+        <table class="hrs">
+          <tr data-d="1,2,3,4,5"><th>Monday to Friday</th><td>8 am to 9 pm</td></tr>
+          <tr data-d="6"><th>Saturday</th><td>9 am to 10 pm</td></tr>
+          <tr data-d="0"><th>Sunday</th><td>9 am to 10 pm</td></tr>
+        </table>
+        <p class="addr"><b>14 Orchard Lane</b>, Garden District<br>Two minutes from the market square &middot; Step-free entrance</p>
+        <div class="ctas"><a class="btn" href="#menu">See the menu</a><a class="btn ghost" href="mailto:hello@berrylane.example">Email us</a></div>
+      </div>
+      <div class="map" role="img" aria-label="Map placeholder showing Berrylane on Orchard Lane">
+        <div class="road r1"></div><div class="road r2"></div><div class="road r3"></div><div class="road r4"></div>
+        <div class="park"></div><span class="street s1">Orchard Lane</span><span class="street s2">Market Sq.</span>
+        <div class="pin"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 58C14 46 8 30 14 22c5-7 13-6 18-2 5-4 13-5 18 2 6 8 0 24-18 36z" fill="#d62839"/><path d="M22 16c4 2 7 2 10 0 3 2 6 2 10 0-2-5-6-8-10-8s-8 3-10 8z" fill="#3f9a28"/></svg><b>Berrylane</b></div>
+        <span class="map-note">Map preview</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="newsletter" class="band alt" aria-labelledby="nl-h">
+    <div class="wrap nl">
+      <div><p class="eyebrow"><span>11</span> The weekly drop</p><h2 id="nl-h">Seasonal shakes, <em>first.</em></h2>
+        <p class="nl-sub">One short email a week: what&rsquo;s ripe, what&rsquo;s new, and the occasional free topping.</p></div>
+      <form id="nlform" novalidate>
+        <label for="nlemail" class="vh">Email address</label>
+        <div class="nl-row"><input id="nlemail" name="email" type="email" placeholder="you@example.com" autocomplete="email" required><button class="btn" type="submit">Subscribe</button></div>
+        <p class="nl-err" id="nlerr" role="alert"></p>
+        <p class="nl-fine">No spam, unsubscribe any time.</p>
+      </form>
+      <div class="nl-thanks" id="nlthanks" hidden><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 58C14 46 8 30 14 22c5-7 13-6 18-2 5-4 13-5 18 2 6 8 0 24-18 36z" fill="#d62839"/><path d="M22 16c4 2 7 2 10 0 3 2 6 2 10 0-2-5-6-8-10-8s-8 3-10 8z" fill="#3f9a28"/></svg><div><h3>You&rsquo;re on the list.</h3><p>Thanks! Look out for the first drop this Friday.</p></div></div>
+    </div>
+  </section>
+
+<footer id="visit">
+  <div class="foot">
+    <div><div class="flogo">Berrylane</div><p>Hand-blended strawberry shakes &amp; smoothies.<br>Made fresh, every single glass.</p></div>
+    <div><h4>Visit</h4><p>14 Orchard Lane<br>Garden District</p></div>
+    <div><h4>Hours</h4><p>Mon to Fri · 8 am to 9 pm<br>Sat &amp; Sun · 9 am to 10 pm</p></div>
+    <div><h4>Say hello</h4><p>hello@berrylane.example<br>@berrylane</p></div>
+  </div>
+  <p class="copy-r">© 2026 Berrylane. Picked, blended and poured with love.</p>
+</footer>
+</div>
+
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js"}}
+</script>
+<script type="module" src="./main.js"></script>
+<script src="./site.js" defer></script>
+</body>
+</html>

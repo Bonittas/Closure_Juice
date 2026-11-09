@@ -498,8 +498,8 @@ size();
 function frame(){
   time=clock.getElapsedTime();if(heroStart<0)heroStart=time;
   const {P,A}=scrollState();apply(P,A);renderer.render(scene,cam);
-  if(!window.__berrylaneReady){window.__berrylaneReady=true;document.dispatchEvent(new Event('berrylane:ready'));}
+  if(!window.__maledaReady){window.__maledaReady=true;document.dispatchEvent(new Event('maleda:ready'));}
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
-window.__berrylane={state:()=>scrollState(),berries:N,landers:landers.length,view:()=>({...view})};
+window.__maleda={state:()=>scrollState(),berries:N,landers:landers.length,view:()=>({...view})};

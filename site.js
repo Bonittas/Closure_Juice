@@ -1,4 +1,4 @@
-/* Berrylane: page chrome around the 3D story (preloader, progress dots, sticky CTA, smooth anchors, hours, newsletter). No network calls. */
+/* Maleda Juice: page chrome around the 3D story (preloader, progress dots, sticky CTA, smooth anchors, hours, newsletter). No network calls. */
 (function(){
   const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -6,8 +6,8 @@
   /* ---- preloader: waits for the first 3D frame (with a fail-safe) ---- */
   const loader=$('#loader');let gone=false;
   function hideLoader(){if(gone)return;gone=true;loader.classList.add('done');setTimeout(()=>loader.remove(),900);}
-  if(window.__berrylaneReady)hideLoader();
-  document.addEventListener('berrylane:ready',()=>setTimeout(hideLoader,250));
+  if(window.__maledaReady)hideLoader();
+  document.addEventListener('maleda:ready',()=>setTimeout(hideLoader,250));
   setTimeout(hideLoader,9000);
   window.addEventListener('error',()=>setTimeout(hideLoader,400));
 

@@ -55,7 +55,7 @@ export function createBowl({height=1,topRadius=1.5,footRadius=0.6}={}){
     d.position.set(Math.cos(a)*R,outerY(s),Math.sin(a)*R);
     d.lookAt(d.position.x*2,d.position.y,d.position.z*2);
     const k=0.012+r()*0.014;d.scale.set(k,k*1.5,k*0.5);g.add(d);}
-  g.userData={height,topRadius,footRadius};
+  g.userData={height,topRadius,footRadius,profile:pts.map(p=>[p.x,p.y]),rimBead:[topRadius-wall/2,height+0.012,0.04]};   // exact solid cross-section (for collisions)
   return g;
 }
 
@@ -63,7 +63,7 @@ export function createBowl({height=1,topRadius=1.5,footRadius=0.6}={}){
 const R0=0.58;
 const rad=t=>R0*Math.pow(t,0.55)*Math.sqrt(Math.max(0,1-Math.pow(t,6)));
 const topY=rho=>{let lo=0.72,hi=1;for(let i=0;i<24;i++){const m=(lo+hi)/2;if(rad(m)>rho)lo=m;else hi=m;}return(lo+hi)/2;};
-const SEED_GEO=new THREE.SphereGeometry(1,8,6),DROP_GEO=new THREE.SphereGeometry(1,8,6);
+const SEED_GEO=new THREE.SphereGeometry(1,6,4),DROP_GEO=new THREE.SphereGeometry(1,8,6);   // seeds are a few pixels wide: a low-poly sphere looks identical
 const SEED_MAT=new THREE.MeshStandardMaterial({color:lin(0xf0b73c),roughness:0.4,emissive:lin(0x4a2a00)});
 const DROP_MAT=new THREE.MeshPhysicalMaterial({color:0xffffff,transparent:true,opacity:0.35,roughness:0,clearcoat:1,envMapIntensity:2});
 const STOPS=[[0,0xb80f1c],[0.4,0xdc1420],[0.8,0xe8281c],[0.93,0xee5a2a],[1,0xe8c26a]].map(s=>[s[0],lin(s[1])]);

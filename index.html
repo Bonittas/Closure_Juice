@@ -3,22 +3,52 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Maleda Juice · Fresh Juice House</title>
-<meta name="description" content="Maleda Juice: cold-pressed juices, fruit blends and house smoothies made fresh every morning.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M20 18h24l-3 38H23L20 18z' fill='%23e85d04'/%3E%3Cpath d='M18 18h28M32 18V10' stroke='%232d6a4f' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='8' r='4' fill='%23409016'/%3E%3C/svg%3E">
+<title>Maleda · Strawberry Shake &amp; Smoothie Bar</title>
+<meta name="description" content="Maleda is a strawberry shake and smoothie bar. Thick, hand-blended shakes made to order from berries picked at dawn, real milk and house gelato.">
+<meta name="theme-color" content="#c41f33">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Maleda">
+<meta property="og:title" content="Maleda · Strawberry Shake &amp; Smoothie Bar">
+<meta property="og:description" content="Thick, hand-blended strawberry shakes made to order from berries picked at dawn.">
+<meta property="og:image" content="og-image.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A Maleda strawberry shake topped with whipped cream and a fresh berry">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Maleda · Strawberry Shake &amp; Smoothie Bar">
+<meta name="twitter:description" content="Thick, hand-blended strawberry shakes made to order from berries picked at dawn.">
+<meta name="twitter:image" content="og-image.jpg">
+<!-- everything is self-hosted: fonts (OFL, fonts/OFL.txt), three.js (vendor/), and the pre-baked physics (sims.bin) -->
+<link rel="preload" href="./fonts/PlayfairDisplay-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="./fonts/DMSans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script type="importmap">
+{"imports":{"three":"./vendor/three.module.js"}}
+</script>
+<link rel="modulepreload" href="./vendor/three.module.js">
+<link rel="modulepreload" href="./main.js">
+<link rel="modulepreload" href="./physics.js">
+<link rel="modulepreload" href="./strawberry_bowl.js">
+<link rel="modulepreload" href="./blender.js">
+<link rel="modulepreload" href="./glass.js">
+<link rel="modulepreload" href="./pour.js">
+<link rel="modulepreload" href="./looks.js">
+<link rel="preload" href="./sims.bin?v=13" as="fetch" crossorigin>
+<link rel="stylesheet" href="./fonts/fonts.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="./style.css">
+<script>/* ?bench only: load the benchmark harness (inert otherwise) */if(/[?&]bench(=|&|$)/.test(location.search)){var b=document.createElement('script');b.src='./bench.js';document.head.appendChild(b);}</script>
 </head>
 <body>
 <div id="loader" role="status" aria-live="polite">
   <div class="ld-inner">
-    <svg class="ld-berry" viewBox="0 0 64 64" aria-hidden="true"><path d="M20 18h24l-3 38H23L20 18z" fill="#e85d04"/><path d="M18 18h28M32 18V10" stroke="#2d6a4f" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="32" cy="8" r="4" fill="#409016"/></svg>
-    <div class="ld-name">Maleda Juice</div>
+    <svg class="ld-berry" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 58C14 46 8 30 14 22c5-7 13-6 18-2 5-4 13-5 18 2 6 8 0 24-18 36z" fill="#d62839"/><path d="M22 16c4 2 7 2 10 0 3 2 6 2 10 0-2-5-6-8-10-8s-8 3-10 8z" fill="#3f9a28"/><g fill="#f7d36a"><circle cx="24" cy="30" r="1.6"/><circle cx="34" cy="28" r="1.6"/><circle cx="42" cy="33" r="1.6"/><circle cx="28" cy="40" r="1.6"/><circle cx="38" cy="42" r="1.6"/><circle cx="32" cy="50" r="1.6"/></g></svg>
+    <div class="ld-name">Maleda</div>
     <div class="ld-bar"><i></i></div>
-    <div class="ld-txt">Pressing today&rsquo;s fruit&hellip;</div>
+    <div class="ld-txt">Blending&hellip;</div>
   </div>
+  <!-- invisible samples of the page's heavier paint effects (card shadows, multi-stop gradient tiles, rounded clips, the star glyph),
+       painted once under the loader so the browser builds their GPU raster shaders now instead of mid-scroll -->
+  <div class="ld-warm" aria-hidden="true"><figure class="rev"><div class="stars">&#9733;&#9733;&#9733;&#9733;<span>&#9733;</span></div><blockquote>&ldquo;Maleda&rdquo;</blockquote><figcaption>Maleda</figcaption></figure><div class="gal"><div class="tile t1"></div><div class="tile t2"></div><div class="tile t3"></div><div class="tile t4"></div><div class="tile t5"></div><div class="tile t6"></div></div></div>
 </div>
 <!-- crossfading background layers, one per section -->
 <div id="bg" aria-hidden="true">
@@ -26,67 +56,81 @@
   <div class="layer l3"></div><div class="layer l4"></div><div class="layer l5"></div>
 </div>
 
+<a class="skip" href="#main">Skip to content</a>
 <header id="nav">
-  <a class="logo" href="#fresh" aria-label="Maleda Juice home">
-    <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M20 18h24l-3 38H23L20 18z" fill="#e85d04"/><path d="M18 18h28M32 18V10" stroke="#2d6a4f" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="32" cy="8" r="4" fill="#409016"/></svg>
-    <span>Maleda Juice<small>Fresh Juice House</small></span>
+  <a class="logo" href="#fresh" aria-label="Maleda, back to top">
+    <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 58C14 46 8 30 14 22c5-7 13-6 18-2 5-4 13-5 18 2 6 8 0 24-18 36z" fill="#d62839"/><path d="M22 16c4 2 7 2 10 0 3 2 6 2 10 0-2-5-6-8-10-8s-8 3-10 8z" fill="#3f9a28"/><g fill="#f7d36a"><circle cx="24" cy="30" r="1.6"/><circle cx="34" cy="28" r="1.6"/><circle cx="42" cy="33" r="1.6"/><circle cx="28" cy="40" r="1.6"/><circle cx="38" cy="42" r="1.6"/><circle cx="32" cy="50" r="1.6"/></g></svg>
+    <span>Maleda<small>Shake &amp; Smoothie Bar</small></span>
   </a>
-  <nav>
-    <a href="#fresh">Story</a><a href="#menu">Menu</a><a href="#reviews">Reviews</a><a href="#hours">Visit</a>
-    <a class="btn small" href="#menu">Order ahead</a>
+  <nav class="primary" aria-label="Main">
+    <a href="#fresh" data-nav="story">Our story</a><a href="#fullmenu" data-nav="menu">Menu</a><a href="#reviews" data-nav="reviews">Reviews</a><a href="#hours" data-nav="visit">Visit</a>
   </nav>
+  <div class="nav-r">
+    <span class="open-now" id="opennow" aria-live="polite"></span>
+    <a class="btn small" href="#fullmenu">Order ahead</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
 </header>
+<div id="mnav" class="mnav" hidden>
+  <nav aria-label="Mobile">
+    <a href="#fresh">Our story</a><a href="#fullmenu">Menu</a><a href="#reviews">Reviews</a><a href="#hours">Visit &amp; hours</a><a href="#newsletter">Newsletter</a>
+  </nav>
+  <div class="mnav-foot">
+    <a class="btn" href="#fullmenu">Order ahead</a>
+    <p>14 Orchard Lane, Garden District<br>Mon to Fri 8 am to 9 pm &middot; Sat &amp; Sun 9 am to 10 pm</p>
+  </div>
+</div>
 
-<canvas id="c" aria-label="3D juice pour animation"></canvas>
+<canvas id="c" aria-label="3D strawberry milkshake animation"></canvas>
 <div id="viewctl" aria-label="3D view controls">
   <button type="button" data-a="in" aria-label="Zoom in">+</button>
   <button type="button" data-a="out" aria-label="Zoom out">&minus;</button>
   <button type="button" data-a="reset" aria-label="Reset view" class="reset"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5a7 7 0 1 1-6.6 4.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 4v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Reset view</span></button>
 </div>
 <nav id="steps" aria-label="Story progress">
-  <a href="#fresh" data-s="0"><i></i><span>Fresh fruit</span></a>
-  <a href="#sorted" data-s="1"><i></i><span>Hand sorted</span></a>
-  <a href="#blend" data-s="2"><i></i><span>Press &amp; blend</span></a>
+  <a href="#fresh" data-s="0"><i></i><span>Picked at dawn</span></a>
+  <a href="#sorted" data-s="1"><i></i><span>Into the tumble</span></a>
+  <a href="#blend" data-s="2"><i></i><span>Milk &amp; blend</span></a>
   <a href="#pour" data-s="3"><i></i><span>The pour</span></a>
   <a href="#finish" data-s="4"><i></i><span>Into the glass</span></a>
 </nav>
-<a id="stickycta" class="btn" href="#menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10l-1 16H8L7 4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M6 4h12M12 4l2-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Order ahead</a>
-<div id="viewhint" aria-hidden="true"><span class="d">Drag to rotate · Ctrl + scroll to zoom</span><span class="m">Swipe sideways to rotate</span></div>
+<a id="stickycta" class="btn" href="#fullmenu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4h10l-1 16H8L7 4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M6 4h12M12 4l2-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Order ahead</a>
+<div id="viewhint" aria-hidden="true"><span class="d">Drag to rotate</span><span class="m">Swipe to rotate</span></div>
 
-<main>
+<main id="main">
   <section class="chap light" id="fresh" data-i="0">
     <div class="sticky"><div class="copy">
-      <p class="eyebrow"><span>01</span> Fresh fruit</p>
-      <h1>Fruit first,<br><em>juice second.</em></h1>
-      <p class="lead">Every Maleda Juice glass starts with crates of ripe fruit delivered each morning — citrus, mango, pineapple, greens and berries — washed and sorted before we open the doors.</p>
+      <p class="eyebrow"><span>01</span> Picked at dawn</p>
+      <h1>Strawberries,<br><em>straight from the field.</em></h1>
+      <p class="lead">Every Maleda shake starts with a bowl of ripe, glossy strawberries, delivered each morning from small farms in the highlands and hand-sorted before we open.</p>
       <div class="ctas"><a class="btn" href="#menu">Explore the menu</a><a class="btn ghost" href="#hours">Find us</a></div>
-      <ul class="facts"><li><b>6 am</b>delivery</li><li><b>0</b>from concentrate</li><li><b>12+</b>daily juices</li></ul>
+      <ul class="facts"><li><b>6 am</b>harvest</li><li><b>0</b>frozen fruit</li><li><b>100%</b>real berries</li></ul>
     </div></div>
-    <div class="scrollcue" aria-hidden="true">Scroll to tip the bowl</div>
+    <div class="scrollcue" aria-hidden="true">Scroll</div>
   </section>
 
   <section class="chap light" id="sorted" data-i="1">
     <div class="sticky"><div class="copy">
-      <p class="eyebrow"><span>02</span> Hand sorted</p>
-      <h2>Only what<br><em>belongs in a glass.</em></h2>
-      <p class="lead">We pick fruit by hand for colour, scent and ripeness. Soft pieces go into today&rsquo;s blend; the rest wait. Nothing canned, nothing from a carton, nothing watered down.</p>
+      <p class="eyebrow"><span>02</span> Into the tumble</p>
+      <h2>Ripe, red and<br><em>falling for you.</em></h2>
+      <p class="lead">Straight from the bowl, every berry tumbles into its shake whole. Sun-warm, deep red to the shoulder and fragrant enough to smell across the counter. Nothing frozen, nothing from a carton.</p>
       <ul class="menu-list">
-        <li><span>Daily haul</span><i></i><span>Market &amp; local farms</span></li>
-        <li><span>Per glass</span><i></i><span>A full handful of fruit</span></li>
-        <li><span>Prep</span><i></i><span>Peeled &amp; cut to order</span></li>
+        <li><span>Variety</span><i></i><span>Chandler &amp; Albion</span></li>
+        <li><span>Per shake</span><i></i><span>A generous handful</span></li>
+        <li><span>Hulled</span><i></i><span>By hand, to order</span></li>
       </ul>
     </div></div>
   </section>
 
   <section class="chap light" id="blend" data-i="2">
     <div class="sticky"><div class="copy">
-      <p class="eyebrow"><span>03</span> Press &amp; blend</p>
-      <h2>Cold-pressed,<br><em>blended to order.</em></h2>
-      <p class="lead">Citrus goes through the press. Soft fruit hits the blender with ice or a splash of coconut water. Lid on, blades up, and in under a minute you have a bright, clean pour — no syrup base, no powder mix.</p>
+      <p class="eyebrow"><span>03</span> Milk &amp; blend</p>
+      <h2>Berries, cold milk,<br><em>forty-five seconds.</em></h2>
+      <p class="lead">The berries land in the jar and we pour ice-cold whole milk right over them, with a scoop of house vanilla gelato. Lid on, blades up, and in under a minute it all turns silky, blush-pink and impossibly thick.</p>
       <ul class="menu-list">
-        <li><span>Base</span><i></i><span>Fruit, coconut water or milk</span></li>
-        <li><span>Sweetened with</span><i></i><span>Ripe fruit only</span></li>
-        <li><span>Add-ins</span><i></i><span>Ginger, mint, chia, honey</span></li>
+        <li><span>Milk</span><i></i><span>Whole, oat or almond</span></li>
+        <li><span>Sweetened with</span><i></i><span>Raw honey</span></li>
+        <li><span>Add-ins</span><i></i><span>Malt, rose, black pepper</span></li>
       </ul>
     </div></div>
   </section>
@@ -94,20 +138,20 @@
   <section class="chap dark" id="pour" data-i="3">
     <div class="sticky"><div class="copy">
       <p class="eyebrow"><span>04</span> The pour</p>
-      <h2>Colour you can<br><em>taste from across the room.</em></h2>
-      <p class="lead">Straight from the press or blender, every juice gets one long, clean pour so the glass is full from the first sip to the last. Thick where it should be thick, bright where it should shine.</p>
-      <div class="ctas"><a class="btn light" href="#menu">See all juices</a></div>
+      <h2>Thick enough<br><em>to take its time.</em></h2>
+      <p class="lead">Straight from the blender, a proper shake doesn't splash, it ribbons. One long, slow, velvety pour, so every glass gets the same thick body from the first sip to the last scrape of the straw.</p>
+      <div class="ctas"><a class="btn light" href="#menu">See all shakes</a></div>
     </div></div>
   </section>
 
-  <section class="chap light" id="finish" data-i="4">
+  <section class="chap dark" id="finish" data-i="4">
     <div class="sticky"><div class="copy">
       <p class="eyebrow"><span>05</span> Into the glass</p>
-      <h2>Garnish, ice,<br><em>ready to go.</em></h2>
-      <p class="lead">We finish each glass with a wedge of citrus, a sprig of mint or a slice of fruit on the rim — then a compostable straw. Cold enough for the morning rush, bright enough for the afternoon.</p>
+      <h2>Whipped cream, syrup,<br><em>one perfect berry.</em></h2>
+      <p class="lead">The ribbon fills a frosted glass to the brim. Then piped Chantilly cream, a drizzle of slow-cooked strawberry syrup, a whole berry on top and a paper straw. Cold enough to fog.</p>
       <ul class="menu-list">
-        <li><span>Ice</span><i></i><span>Cubed or crushed</span></li>
-        <li><span>Garnish</span><i></i><span>Mint, citrus, seasonal fruit</span></li>
+        <li><span>Cream</span><i></i><span>Hand-whipped Chantilly</span></li>
+        <li><span>Syrup</span><i></i><span>Strawberry, simmered 3 h</span></li>
         <li><span>Straw</span><i></i><span>Paper, compostable</span></li>
       </ul>
     </div></div>
@@ -115,28 +159,28 @@
 
   <section class="dark" id="menu" data-i="5">
     <div class="menu-wrap">
-      <p class="eyebrow"><span>06</span> The menu</p>
-      <h2>Pick your <em>pour.</em></h2>
+      <p class="eyebrow"><span>06</span> Signature shakes</p>
+      <h2>Pick your <em>pink.</em></h2>
       <div class="cards">
         <article>
-          <div class="c-top"><svg class="c-ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M8 6h12l-1.6 18H9.6L8 6z"/><path d="M7 6c0-2.5 3-3.5 7-3.5S21 3.5 21 6"/><path d="M16 2.5l2.5-2"/></svg><span class="price">$6.50</span></div>
-          <h3>Sunrise Citrus</h3><p>Orange, grapefruit and a squeeze of lemon. Cold-pressed, no pulp filter.</p><span class="tag">Bestseller</span>
+          <div class="c-top"><svg class="c-ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M8 6h12l-1.6 18H9.6L8 6z"/><path d="M7 6c0-2.5 3-3.5 7-3.5S21 3.5 21 6"/><path d="M16 2.5l2.5-2"/></svg><span class="price">Br 240</span></div>
+          <h3>The Classic</h3><p>Strawberries, whole milk, vanilla gelato, Chantilly cream and syrup.</p><span class="tag">Bestseller</span>
         </article>
         <article>
-          <div class="c-top"><svg class="c-ic" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="11" r="5"/><path d="M14 8c-1.6 0-2.6 1.3-2.2 2.7.4 1.4 2.7 1.7 3.6.5"/><path d="M14 16v9M14 21c-2-2.6-4.6-3-6-2.4M14 19c2-2 4.4-2.2 5.6-1.6"/></svg><span class="price">$7.25</span></div>
-          <h3>Mango Glow</h3><p>Ripe mango, pineapple and coconut water. Soft, tropical, never watery.</p><span class="tag">Tropical</span>
+          <div class="c-top"><svg class="c-ic" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="11" r="5"/><path d="M14 8c-1.6 0-2.6 1.3-2.2 2.7.4 1.4 2.7 1.7 3.6.5"/><path d="M14 16v9M14 21c-2-2.6-4.6-3-6-2.4M14 19c2-2 4.4-2.2 5.6-1.6"/></svg><span class="price">Br 230</span></div>
+          <h3>Rose &amp; Berry</h3><p>Our classic with a whisper of rosewater and crushed pistachio.</p><span class="tag">Floral</span>
         </article>
         <article>
-          <div class="c-top"><svg class="c-ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M5 23C5 12 12 5 23 5c0 11-7 18-18 18z"/><path d="M5 23L16 12"/></svg><span class="price">$7.00</span></div>
-          <h3>Green Garden</h3><p>Apple, spinach, cucumber, ginger and lime. Clean, sharp and plant-forward.</p><span class="tag">Green</span>
+          <div class="c-top"><svg class="c-ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M5 23C5 12 12 5 23 5c0 11-7 18-18 18z"/><path d="M5 23L16 12"/></svg><span class="price">Br 225</span></div>
+          <h3>Berry Oat Cloud</h3><p>Oat milk, coconut cream, strawberries and maple. Fully plant-based.</p><span class="tag">Vegan</span>
         </article>
         <article>
-          <div class="c-top"><svg class="c-ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M19 4a10 10 0 1 0 5 15A8 8 0 0 1 19 4z"/><path d="M8 7l.8 1.8L10.6 9.6 8.8 10.4 8 12.2 7.2 10.4 5.4 9.6l1.8-.8z"/></svg><span class="price">$7.50</span></div>
-          <h3>House Blend</h3><p>Seasonal fruit mixed to order — ask what&rsquo;s ripe today at the counter.</p><span class="tag">Daily</span>
+          <div class="c-top"><svg class="c-ic" viewBox="0 0 28 28" aria-hidden="true"><path d="M19 4a10 10 0 1 0 5 15A8 8 0 0 1 19 4z"/><path d="M8 7l.8 1.8L10.6 9.6 8.8 10.4 8 12.2 7.2 10.4 5.4 9.6l1.8-.8z"/></svg><span class="price">Br 235</span></div>
+          <h3>Malted Midnight</h3><p>Strawberry, dark chocolate and malt, finished with cocoa nibs.</p><span class="tag">Rich</span>
         </article>
       </div>
-      <p class="menu-note">Regular 12 oz &middot; Large 16 oz +$2 &middot; Add ginger, mint or chia at no charge</p>
-      <div class="ctas"><a class="btn light" href="#hours">Order at the counter</a><a class="btn ghost" href="#hours">Opening hours</a></div>
+      <p class="menu-note">Regular 12 oz &middot; Large 16 oz Br 250 &middot; Swap to oat or almond milk at no charge</p>
+      <div class="ctas"><a class="btn light" href="#fullmenu">Full menu &amp; prices</a><a class="btn ghost" href="#hours">Opening hours</a></div>
     </div>
   </section>
 </main>
@@ -145,93 +189,105 @@
   <section id="why" class="band" aria-labelledby="why-h">
     <div class="wrap">
       <p class="eyebrow"><span>07</span> Why Maleda</p>
-      <h2 id="why-h">Fresh fruit. <em>Honest juice.</em></h2>
+      <h2 id="why-h">Small batch. <em>Big flavour.</em></h2>
       <div class="why-grid">
-        <div class="why"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="18" r="6"/><path d="M16 4v4M6 8l2.8 2.8M26 8l-2.8 2.8M3 18h4M25 18h4M4 26h24"/></svg><h3>Morning fruit run</h3><p>Crates from the market and local farms land on our counter before we open.</p></div>
-        <div class="why"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M11 3h10v5l3 4v17H8V12l3-4z"/><path d="M8 17h16"/></svg><h3>Pressed &amp; blended here</h3><p>Cold-pressed citrus and made-to-order blends — never from concentrate.</p></div>
-        <div class="why"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4c5 6 8 10 8 14a8 8 0 0 1-16 0c0-4 3-8 8-14z"/><path d="M5 5l22 22"/></svg><h3>No bottled shortcuts</h3><p>We sweeten with ripe fruit and a touch of honey when you ask. Nothing artificial.</p></div>
+        <div class="why"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="18" r="6"/><path d="M16 4v4M6 8l2.8 2.8M26 8l-2.8 2.8M3 18h4M25 18h4M4 26h24"/></svg><h3>Picked at dawn</h3><p>Berries from small highland farms, on our counter the same morning.</p></div>
+        <div class="why"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M11 3h10v5l3 4v17H8V12l3-4z"/><path d="M8 17h16"/></svg><h3>Real milk &amp; gelato</h3><p>Whole milk and house vanilla gelato, or oat and almond if you prefer.</p></div>
+        <div class="why"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4c5 6 8 10 8 14a8 8 0 0 1-16 0c0-4 3-8 8-14z"/><path d="M5 5l22 22"/></svg><h3>No bottled syrups</h3><p>Our strawberry syrup is simmered in-house for three hours. Nothing artificial.</p></div>
         <div class="why"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M9 8h14l-2 20H11z"/><path d="M7 8h18M16 8V3"/><path d="M13 16c2 2 4 2 6 0"/></svg><h3>Compostable to the straw</h3><p>Paper straws, plant-based cups and a bring-your-own-cup discount.</p></div>
       </div>
     </div>
   </section>
 
-  <section id="reviews" class="band alt" aria-labelledby="rev-h">
+  <section id="fullmenu" class="band menu-band" aria-labelledby="fm-h">
     <div class="wrap">
-      <p class="eyebrow"><span>08</span> Kind words</p>
-      <h2 id="rev-h">What people <em>say.</em></h2>
-      <p class="sample-note">Sample reviews, for illustration</p>
-      <div class="rev-grid">
-        <figure class="rev"><div class="stars" aria-label="5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>&ldquo;Sunrise Citrus tastes like actual oranges, not juice-box sweetness. My weekday morning stop now.&rdquo;</blockquote><figcaption>A weekday regular</figcaption></figure>
-        <figure class="rev"><div class="stars" aria-label="5 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>&ldquo;Green Garden is sharp and fresh without tasting like lawn clippings. Finally a green juice I finish.&rdquo;</blockquote><figcaption>A first-time visitor</figcaption></figure>
-        <figure class="rev"><div class="stars" aria-label="4 out of 5">&#9733;&#9733;&#9733;&#9733;<span>&#9733;</span></div><blockquote>&ldquo;Mango Glow is thick and tropical. Watching them press and pour is half the reason I come back.&rdquo;</blockquote><figcaption>A neighbour on Orchard Lane</figcaption></figure>
+      <div class="fm-head"><div><p class="eyebrow"><span>08</span> Menu</p><h2 id="fm-h">Everything we <em>pour.</em></h2></div>
+        <p class="fm-sub">All shakes are 12 oz and blended to order. Allergens: ask at the counter, we&rsquo;re happy to help.</p></div>
+      <div class="fm-grid">
+        <div class="fm-col"><h3>Shakes</h3><ul class="fm-list"><li><div><span class="mi-n">The Classic</span><span class="mi-d">Strawberries, whole milk, vanilla gelato, Chantilly cream, house syrup</span></div><i aria-hidden="true"></i><span class="mi-p">Br 240</span></li><li><div><span class="mi-n">Rose &amp; Berry</span><span class="mi-d">The Classic with rosewater and crushed pistachio</span></div><i aria-hidden="true"></i><span class="mi-p">Br 230</span></li><li><div><span class="mi-n">Berry Oat Cloud</span><span class="mi-d">Oat milk, coconut cream, strawberries and maple. Plant-based</span></div><i aria-hidden="true"></i><span class="mi-p">Br 225</span></li><li><div><span class="mi-n">Malted Midnight</span><span class="mi-d">Strawberry, dark chocolate and malt, cocoa nibs</span></div><i aria-hidden="true"></i><span class="mi-p">Br 235</span></li><li><div><span class="mi-n">Honey &amp; Black Pepper</span><span class="mi-d">Raw honey, cracked pepper, a pinch of sea salt</span></div><i aria-hidden="true"></i><span class="mi-p">Br 230</span></li></ul></div>
+        <div class="fm-col"><h3>Smoothies</h3><ul class="fm-list"><li><div><span class="mi-n">Sunrise</span><span class="mi-d">Strawberry, mango, orange and yoghurt</span></div><i aria-hidden="true"></i><span class="mi-p">Br 190</span></li><li><div><span class="mi-n">Green Berry</span><span class="mi-d">Strawberry, spinach, banana, apple, oat milk</span></div><i aria-hidden="true"></i><span class="mi-p">Br 195</span></li><li><div><span class="mi-n">Berry Protein</span><span class="mi-d">Strawberry, banana, peanut butter, whey or pea protein</span></div><i aria-hidden="true"></i><span class="mi-p">Br 215</span></li><li><div><span class="mi-n">Kids&rsquo; Pink</span><span class="mi-d">A small Classic, no syrup, with a cookie</span></div><i aria-hidden="true"></i><span class="mi-p">Br 150</span></li></ul></div>
+        <div class="fm-col"><h3>Sizes &amp; extras</h3><ul class="fm-list"><li><div><span class="mi-n">Large 16 oz</span><span class="mi-d">Any shake or smoothie, large size</span></div><i aria-hidden="true"></i><span class="mi-p">Br 250</span></li><li><div><span class="mi-n">Oat or almond milk</span><span class="mi-d">Swap on any shake</span></div><i aria-hidden="true"></i><span class="mi-p">Free</span></li><li><div><span class="mi-n">Extra berry &amp; syrup</span><span class="mi-d">On top</span></div><i aria-hidden="true"></i><span class="mi-p">+Br 150</span></li><li><div><span class="mi-n">Malt, rose or espresso shot</span><span class="mi-d">Add to anything</span></div><i aria-hidden="true"></i><span class="mi-p">+Br 160</span></li><li><div><span class="mi-n">Bring your own cup</span><span class="mi-d">Discount at the counter</span></div><i aria-hidden="true"></i><span class="mi-p">&minus;Br 150</span></li></ul></div>
       </div>
     </div>
   </section>
 
-  <section id="gallery" class="band" aria-labelledby="gal-h">
+  <section id="reviews" class="band alt" aria-labelledby="rev-h">
+    <!-- placeholder reviews: replace with real guest reviews before launch -->
     <div class="wrap">
-      <div class="gal-head"><div><p class="eyebrow"><span>09</span> @maledajuice</p><h2 id="gal-h">Fresh from <em>the feed.</em></h2></div><a class="btn ghost" href="#newsletter">Get the weekly drop</a></div>
-      <div class="gal">
-        <div class="tile t1" data-l="412" role="img" aria-label="A citrus juice from above"></div>
-        <div class="tile t2" data-l="389" role="img" aria-label="A crate of mixed fruit"></div>
-        <div class="tile t3" data-l="527" role="img" aria-label="Green juice pour"></div>
-        <div class="tile t4" data-l="298" role="img" aria-label="Glass of juice with a straw"></div>
-        <div class="tile t5" data-l="611" role="img" aria-label="Sliced mango and pineapple"></div>
-        <div class="tile t6" data-l="344" role="img" aria-label="Morning light on the juice counter"></div>
+      <p class="eyebrow"><span>09</span> Kind words</p>
+      <h2 id="rev-h">What guests <em>say.</em></h2>
+      <div class="rev-grid">
+        <figure class="rev"><div class="stars" role="img" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>&ldquo;Thick enough to stand a straw in, and it actually tastes of strawberries. The Classic is my Saturday ritual.&rdquo;</blockquote><figcaption>Weekend regular</figcaption></figure>
+        <figure class="rev"><div class="stars" role="img" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><blockquote>&ldquo;The oat version is so creamy I had to ask twice if it was really plant-based.&rdquo;</blockquote><figcaption>First-time visitor</figcaption></figure>
+        <figure class="rev"><div class="stars" role="img" aria-label="4 out of 5 stars">&#9733;&#9733;&#9733;&#9733;<span>&#9733;</span></div><blockquote>&ldquo;Rose &amp; Berry is delicate and not too sweet. Watching them blend it is half the fun.&rdquo;</blockquote><figcaption>Neighbour on Orchard Lane</figcaption></figure>
       </div>
     </div>
   </section>
+
 
   <section id="hours" class="band dark2" aria-labelledby="hrs-h">
     <div class="wrap hours-grid">
       <div>
-        <p class="eyebrow"><span>10</span> Visit us</p>
-        <h2 id="hrs-h">Come by for <em>a fresh pour.</em></h2>
+        <p class="eyebrow"><span>11</span> Visit us</p>
+        <h2 id="hrs-h">Come by for <em>a pink one.</em></h2>
         <table class="hrs">
-          <tr data-d="1,2,3,4,5"><th>Monday to Friday</th><td>8 am to 9 pm</td></tr>
-          <tr data-d="6"><th>Saturday</th><td>9 am to 10 pm</td></tr>
-          <tr data-d="0"><th>Sunday</th><td>9 am to 10 pm</td></tr>
+          <caption class="vh">Opening hours</caption>
+          <tr data-d="1,2,3,4,5"><th scope="row">Monday to Friday</th><td>8 am to 9 pm</td></tr>
+          <tr data-d="6"><th scope="row">Saturday</th><td>9 am to 10 pm</td></tr>
+          <tr data-d="0"><th scope="row">Sunday</th><td>9 am to 10 pm</td></tr>
         </table>
-        <p class="addr"><b>14 Orchard Lane</b>, Garden District<br>Two minutes from the market square &middot; Step-free entrance</p>
-        <div class="ctas"><a class="btn" href="#menu">See the menu</a><a class="btn ghost" href="mailto:hello@maledajuice.example">Email us</a></div>
+        <address class="addr"><b>14 Orchard Lane</b>, Garden District<br>Two minutes from the market square &middot; Step-free entrance<br><a href="mailto:hello@maleda.example">hello@maleda.example</a></address>
+        <div class="ctas"><a class="btn" href="#fullmenu">See the menu</a><a class="btn ghost" href="mailto:hello@maleda.example">Email us</a></div>
       </div>
-      <div class="map" role="img" aria-label="Map placeholder showing Maleda Juice on Orchard Lane">
+      <div class="map" role="img" aria-label="Map showing Maleda on Orchard Lane, near Market Square">
         <div class="road r1"></div><div class="road r2"></div><div class="road r3"></div><div class="road r4"></div>
         <div class="park"></div><span class="street s1">Orchard Lane</span><span class="street s2">Market Sq.</span>
-        <div class="pin"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M20 18h24l-3 38H23L20 18z" fill="#e85d04"/><path d="M18 18h28M32 18V10" stroke="#2d6a4f" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="32" cy="8" r="4" fill="#409016"/></svg><b>Maleda Juice</b></div>
-        <span class="map-note">Map preview</span>
+        <div class="pin"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 58C14 46 8 30 14 22c5-7 13-6 18-2 5-4 13-5 18 2 6 8 0 24-18 36z" fill="#d62839"/><path d="M22 16c4 2 7 2 10 0 3 2 6 2 10 0-2-5-6-8-10-8s-8 3-10 8z" fill="#3f9a28"/></svg><b>Maleda</b></div>
       </div>
     </div>
   </section>
 
   <section id="newsletter" class="band alt" aria-labelledby="nl-h">
     <div class="wrap nl">
-      <div><p class="eyebrow"><span>11</span> The weekly drop</p><h2 id="nl-h">Seasonal juices, <em>first.</em></h2>
-        <p class="nl-sub">One short email a week: what&rsquo;s ripe, what&rsquo;s new, and the occasional free add-in.</p></div>
+      <div><p class="eyebrow"><span>12</span> The weekly drop</p><h2 id="nl-h">Seasonal shakes, <em>first.</em></h2>
+        <p class="nl-sub">One short email a week: what&rsquo;s ripe, what&rsquo;s new, and the occasional free topping.</p></div>
       <form id="nlform" novalidate>
         <label for="nlemail" class="vh">Email address</label>
-        <div class="nl-row"><input id="nlemail" name="email" type="email" placeholder="you@example.com" autocomplete="email" required><button class="btn" type="submit">Subscribe</button></div>
+        <div class="nl-row"><input id="nlemail" name="email" type="email" placeholder="you@example.com" autocomplete="email" required aria-describedby="nlerr"><button class="btn" type="submit">Subscribe</button></div>
         <p class="nl-err" id="nlerr" role="alert"></p>
         <p class="nl-fine">No spam, unsubscribe any time.</p>
       </form>
-      <div class="nl-thanks" id="nlthanks" hidden><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M20 18h24l-3 38H23L20 18z" fill="#e85d04"/><path d="M18 18h28M32 18V10" stroke="#2d6a4f" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="32" cy="8" r="4" fill="#409016"/></svg><div><h3>You&rsquo;re on the list.</h3><p>Thanks! Look out for the first drop this Friday.</p></div></div>
+      <div class="nl-thanks" id="nlthanks" hidden><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 58C14 46 8 30 14 22c5-7 13-6 18-2 5-4 13-5 18 2 6 8 0 24-18 36z" fill="#d62839"/><path d="M22 16c4 2 7 2 10 0 3 2 6 2 10 0-2-5-6-8-10-8s-8 3-10 8z" fill="#3f9a28"/></svg><div><h3>You&rsquo;re on the list.</h3><p>Thanks! Look out for the first drop this Friday.</p></div></div>
     </div>
   </section>
 
 <footer id="visit">
-  <div class="foot">
-    <div><div class="flogo">Maleda Juice</div><p>Cold-pressed juices, fruit blends &amp; house smoothies.<br>Made fresh, every single glass.</p></div>
-    <div><h4>Visit</h4><p>14 Orchard Lane<br>Garden District</p></div>
-    <div><h4>Hours</h4><p>Mon to Fri · 8 am to 9 pm<br>Sat &amp; Sun · 9 am to 10 pm</p></div>
-    <div><h4>Say hello</h4><p>hello@maledajuice.example<br>@maledajuice</p></div>
+  <div class="f-cta">
+    <p class="f-cta-t">Come thirsty. <em>Leave pink.</em></p>
+    <div class="f-cta-b"><a class="btn" href="#fullmenu">Order ahead</a><a class="btn ghost f-ghost" href="#hours">Find us</a></div>
   </div>
-  <p class="copy-r">© 2026 Maleda Juice. Picked, pressed and poured with care.</p>
+  <div class="foot">
+    <div class="f-brand">
+      <a class="logo f-logo" href="#fresh" aria-label="Maleda, back to top"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 58C14 46 8 30 14 22c5-7 13-6 18-2 5-4 13-5 18 2 6 8 0 24-18 36z" fill="#d62839"/><path d="M22 16c4 2 7 2 10 0 3 2 6 2 10 0-2-5-6-8-10-8s-8 3-10 8z" fill="#3f9a28"/><g fill="#f7d36a"><circle cx="24" cy="30" r="1.6"/><circle cx="34" cy="28" r="1.6"/><circle cx="42" cy="33" r="1.6"/><circle cx="28" cy="40" r="1.6"/><circle cx="38" cy="42" r="1.6"/><circle cx="32" cy="50" r="1.6"/></g></svg><span>Maleda<small>Shake &amp; Smoothie Bar</small></span></a>
+      <p>Hand-blended strawberry shakes &amp; smoothies. Made fresh, every single glass.</p>
+      <ul class="socials" aria-label="Maleda on social media">
+        <li><a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" class="f"/></svg></a></li>
+        <li><a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 2.6 2.4 4.4 5 4.6"/></svg></a></li>
+        <li><a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 21v-7.5H17l.5-3h-3V8.8c0-.9.3-1.5 1.6-1.5h1.5V4.6c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.1H9v3h2.5V21"/></svg></a></li>
+      </ul>
+    </div>
+    <div class="f-col"><h4>Visit</h4><address>14 Orchard Lane<br>Garden District<br><a href="#hours">Directions &rarr;</a></address></div>
+    <div class="f-col"><h4>Hours</h4><dl class="f-hrs"><div><dt>Mon &ndash; Fri</dt><dd>8 am &ndash; 9 pm</dd></div><div><dt>Sat &ndash; Sun</dt><dd>9 am &ndash; 10 pm</dd></div></dl></div>
+    <div class="f-col"><h4>Explore</h4><ul class="f-links"><li><a href="#fresh">Our story</a></li><li><a href="#fullmenu">Menu</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#newsletter">Newsletter</a></li></ul></div>
+    <div class="f-col"><h4>Contact</h4><ul class="f-links"><li><a href="mailto:hello@maleda.example">hello@maleda.example</a></li><li class="f-note">Private events &amp; catering</li><li><a href="mailto:events@maleda.example">events@maleda.example</a></li></ul></div>
+  </div>
+  <div class="f-bottom">
+    <p>&copy; 2026 Maleda. All rights reserved.</p>
+    <ul class="f-small"><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li><li><a href="#">Accessibility</a></li><li><a href="#fresh" class="totop">Back to top &uarr;</a></li></ul>
+  </div>
 </footer>
 </div>
 
-<script type="importmap">
-{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js"}}
-</script>
 <script type="module" src="./main.js"></script>
 <script src="./site.js" defer></script>
 </body>

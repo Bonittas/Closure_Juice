@@ -151,7 +151,7 @@ export function createCondensation(mobile) {
     }
     m.frustumCulled = false; m.renderOrder = 6; g.add(m); return mat;
   };
-  const fine = mk(mobile ? 220 : 520, 0.0045, 0.006, 0), big = mk(mobile ? 90 : 190, 0.012, 0.03, 0.35);
+  const fine = mk(mobile ? 220 : 520, 0.0045, 0.006, 0), big = mk(mobile ? 90 : 190, 0.01, 0.018, 0.35);
   g.visible = false;
   return { group: g, set(v) { g.visible = v > 0.002; fine.opacity = 0.5 * Math.min(1, v * 2); big.opacity = 0.62 * Math.min(1, Math.max(0, v * 1.6 - 0.4) / 0.6 + 0.0001); } };
 }

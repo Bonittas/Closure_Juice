@@ -49,17 +49,28 @@ export class PourTask{
   }
 }
 
-/* A thin curved stream of liquid between two world points */
+/* A thin curved stream of liquid between two world points.
+   The tube is updated in place every frame (no new geometry per frame, so no garbage-collection hitches). */
+const TS=14,RS=7,_c=new THREE.Vector3(),_t=new THREE.Vector3(),_n=new THREE.Vector3(),_b=new THREE.Vector3(),_up=new THREE.Vector3(0,0,1);
 export class Stream{
   constructor(parent,mat){
-    this.mesh=new THREE.Mesh(new THREE.BufferGeometry(),mat);this.mesh.visible=false;this.mesh.frustumCulled=false;parent.add(this.mesh);
+    const g=new THREE.BufferGeometry(),nv=(TS+1)*(RS+1),idx=[];
+    g.setAttribute('position',new THREE.BufferAttribute(new Float32Array(nv*3),3));g.setAttribute('normal',new THREE.BufferAttribute(new Float32Array(nv*3),3));
+    for(let i=0;i<TS;i++)for(let j=0;j<RS;j++){const a=i*(RS+1)+j,b=a+RS+1;idx.push(a,b,a+1,b,b+1,a+1);}g.setIndex(idx);
+    this.mesh=new THREE.Mesh(g,mat);this.mesh.visible=false;this.mesh.frustumCulled=false;parent.add(this.mesh);
     this.curve=new THREE.QuadraticBezierCurve3(new THREE.Vector3(),new THREE.Vector3(),new THREE.Vector3());
   }
   set(from,to,radius){
     if(radius<0.01){this.mesh.visible=false;return;}
     const c=this.curve;c.v0.copy(from);c.v2.copy(to);
     c.v1.set(from.x+(to.x-from.x)*0.8,from.y-0.05,from.z+(to.z-from.z)*0.8);
-    this.mesh.geometry.dispose();this.mesh.geometry=new THREE.TubeGeometry(c,14,radius,7,false);this.mesh.visible=true;
+    const P=this.mesh.geometry.attributes.position,N=this.mesh.geometry.attributes.normal;
+    for(let i=0;i<=TS;i++){const u=i/TS;c.getPoint(u,_c);c.getTangent(u,_t);
+      _n.crossVectors(_t,_up);if(_n.lengthSq()<1e-6)_n.set(1,0,0);_n.normalize();_b.crossVectors(_t,_n).normalize();
+      for(let j=0;j<=RS;j++){const a=j/RS*Math.PI*2,cs=Math.cos(a),sn=Math.sin(a),k=i*(RS+1)+j;
+        const nx=_n.x*cs+_b.x*sn,ny=_n.y*cs+_b.y*sn,nz=_n.z*cs+_b.z*sn;
+        N.setXYZ(k,nx,ny,nz);P.setXYZ(k,_c.x+nx*radius,_c.y+ny*radius,_c.z+nz*radius);}}
+    P.needsUpdate=true;N.needsUpdate=true;this.mesh.visible=true;
   }
   hide(){this.mesh.visible=false;}
 }

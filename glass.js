@@ -122,7 +122,7 @@ export function createGlassStation(x=-3.4,z=0.9){
   function buildDrip(yStart,yEnd,phi0,delay,rad,sway){
     // a drizzle line from near the peak down the swirl (zig-zagging a little), over the overhanging lip of the cream and, if
     // yEnd is below the rim, on down the OUTSIDE of the cup, ending in a round drop
-    const sd=(phi0*3.71)%6,P=[],yLip=cream?cream.y0+(cream.lift||0.02):H+0.1,N1=34;
+    const sd=(phi0*3.71)%6,P=[],yLip=cream?cream.y0+0.16:H+0.1,N1=34;
     const Y=[],PH=[],RS=[];
     for(let i=0;i<=N1;i++){const s=i/N1,y=yStart+(Math.max(yLip,yEnd)-yStart)*s,ph=phi0+sway*Math.sin(s*4.2+sd)*(0.4+0.6*s);Y.push(y);PH.push(ph);RS.push(creamSurfaceR(y,ph));}
     // on the cream: follow its surface, smoothed along the drip, and sit flush on it (sunk ~40% of its radius, never standing

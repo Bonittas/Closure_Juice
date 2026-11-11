@@ -125,8 +125,8 @@ h1 em,h2 em{font-weight:500;font-style:italic;color:var(--accent)}
 
 /* reveal */
 .copy>*{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
-.in .copy>*,.in .menu-wrap>*{opacity:1;transform:none}
-.copy>*:nth-child(2){transition-delay:.08s}.copy>*:nth-child(3){transition-delay:.16s}.copy>*:nth-child(4){transition-delay:.24s}.copy>*:nth-child(5){transition-delay:.32s}
+.in .copy>*,.in .menu-wrap>*,#fresh .copy>*{opacity:1;transform:none}
+.copy>*:nth-child(2),#fresh .copy>*:nth-child(2){transition-delay:.08s}.copy>*:nth-child(3),#fresh .copy>*:nth-child(3){transition-delay:.16s}.copy>*:nth-child(4),#fresh .copy>*:nth-child(4){transition-delay:.24s}.copy>*:nth-child(5),#fresh .copy>*:nth-child(5){transition-delay:.32s}
 
 /* per-section palettes */
 #fresh{--ink:#2e1015;--accent:#c41f33;--muted:rgba(46,16,21,.76)}
@@ -325,17 +325,17 @@ body:has(#pour.in) #steps,body:has(#finish.in) #steps{--dotc:#fde9ec}
   .burger{display:inline-block}
   .nav-r{gap:8px}
   .logo small{display:none}
-  #c{top:auto;bottom:0;width:100vw;height:52vh;height:52svh}
-  #viewctl{right:12px;bottom:12px;gap:6px}#viewctl button{height:34px;min-width:34px}#viewctl .reset span{display:none}
-  #viewhint{right:12px;bottom:56px}#viewhint .d{display:none}#viewhint .m{display:inline}
-  .sticky{align-items:flex-start;height:100vh;height:100svh}
-  .copy{width:100%;padding:86px 6vw 0}
+  #c{top:0;bottom:auto;width:100vw;height:55vh;height:55svh}
+  #viewctl{right:12px;top:calc(55vh - 46px);bottom:auto;gap:6px}#viewctl button{height:34px;min-width:34px}#viewctl .reset span{display:none}
+  #viewhint{right:12px;top:calc(55vh - 86px);bottom:auto}#viewhint .d{display:none}#viewhint .m{display:inline}
+  .sticky{align-items:flex-end;height:100vh;height:100svh}
+  .copy{width:100%;padding:0 6vw 76px}
   h1{font-size:clamp(32px,9vw,46px)}h2{font-size:clamp(28px,8vw,40px)}
   h1,h2{margin-bottom:12px}
   .lead{font-size:15px;line-height:1.5;margin-bottom:14px}
   .facts,.menu-list,.scrollcue{display:none}
   .ctas{margin-bottom:0}.btn{padding:11px 20px;font-size:14px}
-    .menu-wrap{width:100%;padding:96px 6vw 56vh}
+    .menu-wrap{width:100%;padding:56vh 6vw 96px}
   .cards{grid-template-columns:1fr}
   .fm-grid{grid-template-columns:1fr;gap:16px}.fm-col{padding:22px 20px 10px}
   .f-bottom{flex-direction:column;align-items:flex-start}

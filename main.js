@@ -553,7 +553,7 @@ function apply(P,A,warm=false){
   let yNudge=0;
   if(narrow()){
     const poured=P>3.18?0.6:0;
-    const canvasH=Math.max(1,cv.clientHeight||innerHeight*0.55);
+    const canvasH=Math.max(1,cvH);
     const cover=Math.min(0.42,78/canvasH);
     const halfH=OFF_R*k*view.zoom*Math.tan(cam.fov*Math.PI/360);
     const peakAbove=4.35;                                   // cream peak above the settled look point (GY-0.8)
@@ -569,16 +569,26 @@ function apply(P,A,warm=false){
 
   if(warm)return;            // warm-up renders leave the page (opacity, controls, section state) alone
   let op=1;
-  if(A===5&&narrow()){const r=secs[5].getBoundingClientRect();op=sm((r.top/innerHeight-0.05)/0.25);}
+  if(A===5&&narrow()){const r=secs[5].getBoundingClientRect();op=sm((r.top/winH-0.05)/0.25);}
   cv.style.opacity=op.toFixed(3);
-  const foot=document.getElementById('after').getBoundingClientRect().top<innerHeight-40,live=op>0.1&&!foot;
+  
+  // Cache DOM reads to avoid forced reflows during scroll
+  const afterEl=document.getElementById('after');
+  const foot=afterEl?afterEl.getBoundingClientRect().top<winH-40:false;
+  const live=op>0.1&&!foot;
   cv.style.pointerEvents=live?'auto':'none';ctl.classList.toggle('off',!live);hint.classList.toggle('off',!live);
   if(A!==lastA){if(lastA>=0)resetView();lastA=A;secs.forEach((s,i)=>s.classList.toggle('in',i===A));}
 }
 
 /* ---------- sizing ---------- */
-let cvW=1,cvH=1;
-function size(){const w=cv.clientWidth||innerWidth,h=cv.clientHeight||innerHeight;cvW=w;cvH=h;renderer.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();measure();}
+let cvW=1,cvH=1,winH=1000;
+function size(){
+  const w=cv.clientWidth||innerWidth,h=cv.clientHeight||innerHeight;
+  winH=innerHeight;
+  cvW=w;cvH=h;
+  renderer.setSize(w,h,false);
+  cam.aspect=w/h;cam.updateProjectionMatrix();measure();
+}
 addEventListener('resize',size);addEventListener('load',measure);
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(measure);
 size();

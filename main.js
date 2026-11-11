@@ -85,7 +85,7 @@ const shadowPlane=y=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(40,40),new 
 /* ---------- world layout ---------- */
 const Y_B=22;                                              // bowl table height
 const LIPT=new THREE.Vector3(-5.4,6.2,0);                  // where the jar's pouring lip is held during the pour
-const STREAM_ARC=0.2,GX=LIPT.x+0.04-STREAM_ARC,GY=-22;     // glass sits under the falling part of the stream (it arcs out of the lip first)                                    // glass position (straight under the lip)
+const STREAM_ARC=0.2,GX=LIPT.x+0.04-STREAM_ARC,GY=-32.5;   // glass position (pushed lower so the 3D sits closer to the bottom edge of the screen)
 const JB=BLENDER.jarBase,JAR_TOP=JB+BLENDER.jarH,LMAX=1.09,MIX=0.04;
 const SHAKE_HEX=0xc2283f,STREAM_COL=lin(0xc63652),MILK_COL=lin(0xfbf7f1),MID_PINK=lin(0xee8fa3),SHAKE_COL_L=lin(SHAKE_HEX);   // deep strawberry milkshake pink
 
@@ -397,7 +397,7 @@ function camTarget(P){
   const yCloud=YF-G*fallF(P-0.45);                         // follows the middle of the falling berries
   let x=0,y=softFloor(yCloud,YS3);
   if(P>2.9&&LATE){jarPoseAt(P);const s=sm((P-2.91)/0.06);x=lerp(0,JC.x,s);y=lerp(y,JC.y,s);    // rise with the jar (base drops out below), then slide with it
-    if(P>3.18){x=lerp(JC.x,LIPT.x,sm((P-3.18)/0.3));y=lerp(JC.y,GY+1.75,sm((P-3.18)/0.84));}}   // then ride the stream down
+    if(P>3.18){x=lerp(JC.x,LIPT.x,sm((P-3.18)/0.3));y=lerp(JC.y,GY-0.8,sm((P-3.18)/0.84));}}   // then ride the stream down
   CTz=lerp(-BR*0.6,0,sm((P-0.5)/0.6));CTd=lerp(1,0.86,sm((P-3.6)/0.45));
   return CT.set(x,y,CTz);
 }
@@ -543,11 +543,28 @@ function apply(P,A,warm=false){
   }
 
   /* ---- camera + key light ---- */
-  camTarget(P);const k=Math.max(1,1.05/cam.aspect)*CTd;
+  camTarget(P);
+  // framing: pull back for narrow screens / very tall screens
+  const k=Math.max(1,1.05/cam.aspect)*CTd;
   const dt=warm?0:Math.min(0.1,Math.max(0,time-lastT));if(!warm)lastT=time;const kd=1-Math.exp(-dt*7);
   view.yaw+=(view.ty-view.yaw)*kd;view.pitch+=(view.tp-view.pitch)*kd;view.zoom+=(view.tz-view.zoom)*kd;
+  // On a phone the canvas is the top band and the header covers it. A small lift (0.6) keeps the
+  // pour readable; once the glass is the subject, look higher so the finished shake clears the bar.
+  let yNudge=0;
+  if(narrow()){
+    const poured=P>3.18?0.6:0;
+    const canvasH=Math.max(1,cv.clientHeight||innerHeight*0.55);
+    const cover=Math.min(0.42,78/canvasH);
+    const halfH=OFF_R*k*view.zoom*Math.tan(cam.fov*Math.PI/360);
+    const peakAbove=4.35;                                   // cream peak above the settled look point (GY-0.8)
+    const wantDy=halfH*(1-2*Math.min(0.46,cover+0.07));
+    const settle=Math.max(poured,peakAbove-wantDy);
+    const fit=0.8+halfH*0.9;                                 // keep the foot of the glass inside the canvas
+    yNudge=lerp(poured,Math.min(settle,fit),sm((P-3.55)/0.6));
+  }
   const r=OFF_R*k*view.zoom,yw=OFF_YAW+view.yaw,pc=clamp(OFF_PITCH+view.pitch,PITCH_MIN,PITCH_MAX);
-  cam.position.set(CT.x+r*Math.cos(pc)*Math.sin(yw),CT.y+r*Math.sin(pc),CT.z+r*Math.cos(pc)*Math.cos(yw));cam.lookAt(CT);
+  cam.position.set(CT.x+r*Math.cos(pc)*Math.sin(yw),CT.y+yNudge+r*Math.sin(pc),CT.z+r*Math.cos(pc)*Math.cos(yw));
+  CT.y+=yNudge;cam.lookAt(CT);
   key.target.position.copy(CT);key.position.set(CT.x+KEY_OFF.x,CT.y+KEY_OFF.y,CT.z+KEY_OFF.z);
 
   if(warm)return;            // warm-up renders leave the page (opacity, controls, section state) alone
@@ -590,7 +607,7 @@ const WARM=[0.6,1.0,1.5,1.9,2.2,2.35,2.45,2.55,2.68,2.8,2.93,3.0,3.1,3.25,3.4,3.
 // (?warm=1 forces it, e.g. to exercise this path headless)
 const SOFT_GL=/SwiftShader|llvmpipe|softpipe|Software|Microsoft Basic/i.test(GPU_STR)&&!QS.has('warm');
 if(SOFT_GL){WARM.length=0;if(BT)BT.warmSkipped='software GL';}
-const WARM_BUDGET=QS.has('warmms')?+QS.get('warmms'):7000,HERO_SLOW=3500,FRAME_SLOW=1500;
+const WARM_BUDGET=QS.has('warmms')?+QS.get('warmms'):1000,HERO_SLOW=3500,FRAME_SLOW=1500;
 let frameNo=0,warmI=0,warmPass=0,phase='hero',tPhase=-1,tLoop=-1,tPrev=0,maxPre=0,heroMats=null,warmP=-1;
 function drawBeat(P){
   const keepHero=heroDone;heroDone=true;warmP=P;renderer.info.pending=0;

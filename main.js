@@ -331,7 +331,9 @@ const jarShell=()=>{const poly=[[0,0.34],[0.1,0.33],[0.15,0.24],[0.19,0.13]];
   for(let i=30;i>=0;i--){const h=2*i/30;poly.push([jarOuter(h),h]);}poly.push([0,0]);
   return makeShell({poly,rmax:1.4,ymin:-0.45,ymax:2.45,res:0.008});};
 const JAR=(()=>{const IR=RNG(777),TS=G/6.5,spawns=[],radii=[],hulls=[];let PA=1e9;   // (the lander set-up below always runs: the fall uses it)
-  landers.forEach(f=>{{const a=f.rnd*40.0,rr=0.32*Math.sqrt((f.rnd*7.31)%1);f.zT=Math.sin(a)*rr;f.x0=f.R.x*0.5+Math.cos(a)*rr;}            // narrow stream, centred over the jar
+  landers.forEach(f=>{
+    const a=f.rnd*40.0,rr=0.48*Math.sqrt((f.rnd*7.31)%1);   // wider stream
+    f.x0=f.R.x*0.5+Math.cos(a)*rr;f.zT=Math.sin(a)*rr;
     f.uE=fallU(f,f.R.y-YE);f.PE=f.Pr+f.uE;PA=Math.min(PA,f.PE);});
   PA-=0.002;
   if(BAKED){const J_=BAKED.JAR;if(Math.abs(J_.PA-PA)>1e-9||Math.abs(J_.TS-TS)>1e-9)console.warn('Maleda: baked jar timing differs',J_.PA,PA);return J_;}
@@ -397,7 +399,7 @@ function camTarget(P){
   const yCloud=YF-G*fallF(P-0.45);                         // follows the middle of the falling berries
   let x=0,y=softFloor(yCloud,YS3);
   if(P>2.9&&LATE){jarPoseAt(P);const s=sm((P-2.91)/0.06);x=lerp(0,JC.x,s);y=lerp(y,JC.y,s);    // rise with the jar (base drops out below), then slide with it
-    if(P>3.18){x=lerp(JC.x,LIPT.x,sm((P-3.18)/0.3));y=lerp(JC.y,GY-0.8,sm((P-3.18)/0.84));}}   // then ride the stream down
+    if(P>3.18){x=lerp(JC.x,LIPT.x,sm((P-3.18)/0.3));y=lerp(JC.y,GY+2.2,sm((P-3.18)/0.84));}}   // then ride the stream down
   CTz=lerp(-BR*0.6,0,sm((P-0.5)/0.6));CTd=lerp(1,0.86,sm((P-3.6)/0.45));
   return CT.set(x,y,CTz);
 }
@@ -475,7 +477,10 @@ function apply(P,A,warm=false){
       // shrink late in the blend so chunks read as fruit, then puree
       h.scale.setScalar(LAND_SCALE*(1-0.92*Math.pow(Math.max(0,bl-0.35)/0.65,1.6)));
     }else{                                     // straight fall from the bowl's lip
-      const y=f.R.y-fallY(f,u),cl=sm((f.clearY-y)/1.2);h.position.set(f.land?lerp(f.R.x,f.x0,cl):f.R.x,y,lerp(f.R.z,f.zT,cl));
+      const y=f.R.y-fallY(f,u);
+      // delay the sideways slide so they fall straight at first, then fan out gently to the wider target
+      const cl=Math.pow(sm((f.clearY-y)/1.4),1.6);
+      h.position.set(f.land?lerp(f.R.x,f.x0,cl):f.R.x,y,lerp(f.R.z,f.zT,cl));
       _q2.setFromEuler(_e.set(f.spin.x*u,f.spin.y*u,f.spin.z*u));h.quaternion.copy(f.Rq).multiply(_q2);
       h.scale.setScalar(f.land?lerp(1,LAND_SCALE,sm(u/f.uE)):1);
     }
@@ -552,15 +557,8 @@ function apply(P,A,warm=false){
   // pour readable; once the glass is the subject, look higher so the finished shake clears the bar.
   let yNudge=0;
   if(narrow()){
-    const poured=P>3.18?0.6:0;
-    const canvasH=Math.max(1,cvH);
-    const cover=Math.min(0.42,78/canvasH);
-    const halfH=OFF_R*k*view.zoom*Math.tan(cam.fov*Math.PI/360);
-    const peakAbove=4.35;                                   // cream peak above the settled look point (GY-0.8)
-    const wantDy=halfH*(1-2*Math.min(0.46,cover+0.07));
-    const settle=Math.max(poured,peakAbove-wantDy);
-    const fit=0.8+halfH*0.9;                                 // keep the foot of the glass inside the canvas
-    yNudge=lerp(poured,Math.min(settle,fit),sm((P-3.55)/0.6));
+    // on small screens, raise the camera target (meaning the glass moves DOWN visually)
+    yNudge=P>3.18?0.4:0;
   }
   const r=OFF_R*k*view.zoom,yw=OFF_YAW+view.yaw,pc=clamp(OFF_PITCH+view.pitch,PITCH_MIN,PITCH_MAX);
   cam.position.set(CT.x+r*Math.cos(pc)*Math.sin(yw),CT.y+yNudge+r*Math.sin(pc),CT.z+r*Math.cos(pc)*Math.cos(yw));
